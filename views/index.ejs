@@ -1,11 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <p><%= content.current.weather_icons[1].weather_descriptions[0] %></p>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SkyCast</title>
+    <link href="/styles/main.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container">
+    <form action="/" method="get">
+      <div class="search-wrapper">
+        <button class="search-btn glass" type="submit" aria-label="Search">🔍</button>
+        <input
+          id="search"
+          type="text"
+          placeholder="Search city..."
+          name="city"
+        />
+      </div>
+    </form>
+    <ul id="suggestions"></ul>
+    <% if (content && content.main && content.sys) { %>
+    <h1><%= Math.floor(content.main.temp) %>°C🇸🇦</h1>
+    <h1><%= content.name %></h1>
+    <img
+      src="https://openweathermap.org/img/wn/<%=content.weather[0].icon%>@2x.png"
+    />
+    <h3><%= content.weather[0].description %></h3>
+
+    <% } else { %>
+    <h2>Weather data is not available. Please try again later 🇸🇦.</h2>
+    <% } %>
+    </div>
+  </body>
+  <script src="/scripts/index.js"></script>
 </html>

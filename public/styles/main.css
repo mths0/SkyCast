@@ -1,0 +1,97 @@
+#search {
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 250px;
+}
+
+#suggestions {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-width: 250px;
+  border: 1px solid #ccc;
+  border-top: none;
+  background: white;
+  position: absolute;
+  z-index: 1000;
+}
+
+#suggestions li {
+  padding: 0.5rem;
+}
+
+#suggestions li:hover {
+  background: #f0f0f0;
+}
+
+.search-wrapper {
+  position: relative;
+  width: 300px; /* tweak as you like */
+  margin: 1rem auto;
+}
+
+/* Input */
+#search {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.6rem; /* left padding for the icon button */
+  border: 2px solid #d0d7de;
+  border-radius: 9999px;
+  font-size: 1rem;
+  outline: none;
+  background: rgba(255, 255, 255, 0.85); /* slightly transparent */
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Hover = more transparent */
+#search:hover {
+  background: rgba(255, 255, 255, 0.55);
+  border-color: #69bff8;
+}
+
+/* Focus ring */
+#search:focus {
+  border-color: #00a0c6;
+  box-shadow: 0 0 0 4px rgba(0, 160, 198, 0.15);
+  background: #fff;
+}
+
+/* The icon-as-submit button */
+.search-btn {
+  position: absolute;
+  left: 8px; /* put on the left; use right: 8px if you prefer right side */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  background: transparent; /* no button chrome */
+  color: #6b7280; /* icon color */
+  font-size: 1.1rem; /* emoji size */
+  cursor: pointer;
+}
+
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 2f 1f 1f 1f 1f;
+}
+
+.glass {
+    rotate: 5deg;
+}
+.glass:hover{
+    animation: shake 500ms ease-in;
+
+}
+.f {
+    animation: name duration timing-function delay iteration-count direction fill-mode;
+}
+@keyframes shake {
+    30% {rotate: 25deg;}
+    60% {rotate: -25deg;}
+}
