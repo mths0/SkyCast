@@ -7,8 +7,8 @@ It uses the **OpenWeather API** to fetch real-time data.
 👉 [SkyCast on Render](https://skycast-a4cc.onrender.com)
 
 ## 📷 Screenshots
-![App Screenshot](screenshot1.png)
-![App Screenshot](screenshot2.png)
+![App Screenshot](Screenshot1.png)
+![App Screenshot](Screenshot2.png)
 
 ## ✨ Features
 - Search any city to get real-time weather 🌍
