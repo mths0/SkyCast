@@ -4,34 +4,95 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SkyCast</title>
-    <link href="/styles/main.css" rel="stylesheet" />
-  </head>
-  <body>
-    <div class="container">
-    <form action="/" method="get">
-      <div class="search-wrapper">
-        <button class="search-btn glass" type="submit" aria-label="Search">🔍</button>
-        <input
-          id="search"
-          type="text"
-          placeholder="Search city..."
-          name="city"
-        />
-      </div>
-    </form>
-    <ul id="suggestions"></ul>
-    <% if (content && content.main && content.sys) { %>
-    <h1><%= Math.floor(content.main.temp) %>°C🇸🇦</h1>
-    <h1><%= content.name %></h1>
-    <img
-      src="https://openweathermap.org/img/wn/<%=content.weather[0].icon%>@2x.png"
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
     />
-    <h3><%= content.weather[0].description %></h3>
+    <link href="/styles/main.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body data-icon="<%= content.weather[0].icon %>">
+    <main>
+      <div class="container">
+        <form action="/" method="get">
+          <div class="search-wrapper">
+            <button class="search-btn glass" type="submit" aria-label="Search">
+              🔍
+            </button>
+            <input
+              id="search"
+              type="text"
+              placeholder="Search city..."
+              name="city"
+              autocomplete="off"
+              required
+            />
+            <ul id="suggestions" role="listbox"></ul>
+          </div>
+        </form>
 
-    <% } else { %>
-    <h2>Weather data is not available. Please try again later 🇸🇦.</h2>
-    <% } %>
-    </div>
+        <% if (content && content.main && content.sys) { %>
+        <div class="weather-card">
+          <h1><%= Math.floor(content.main.temp) %>°C</h1>
+          <h1><%= content.name %></h1>
+          <img
+            src="https://openweathermap.org/img/wn/<%=content.weather[0].icon%>@2x.png"
+          />
+
+          <h3><%= content.weather[0].description %></h3>
+
+          <script>
+            window.addEventListener("DOMContentLoaded", () => {
+              const weather = document.getElementById("time").innerHTML;
+              console.log("weather", weather);
+
+              const hour = new Date().getHours();
+              const body = document.body;
+
+              if (hour >= 19 || hour < 6) {
+                body.style.background =
+                  "linear-gradient(to bottom, #0f2027, #203a43, #2c5364)";
+                body.style.color = "#f0f9ff";
+              } else if (weather.includes("rain")) {
+                body.style.background =
+                  "url('/images/rain.gif') center/cover no-repeat";
+              } else if (weather.includes("clear")) {
+                body.style.background =
+                  "linear-gradient(to bottom, #f9d423, #ff4e50)";
+              } else if (weather.includes("cloud")) {
+                body.style.background =
+                  "linear-gradient(to bottom, #bdc3c7, #2c3e50)";
+              } else {
+                body.style.background =
+                  "linear-gradient(to bottom, #87ceeb, #f0f9ff)";
+              }
+            });
+          </script>
+          <h3>Humidity %<%= content.main.humidity %></h3>
+        </div>
+        <% } else { %>
+        <h2>Weather data is not available. Please try again later.</h2>
+        <% } %>
+      </div>
+    </main>
+    <footer>
+      <nav>
+        <header>
+          <nav>
+            <a
+              href="https://github.com/mths0"
+              target="_blank"
+              aria-label="GitHub"
+            >
+              <i class="fab fa-github fa-2x"></i>
+            </a>
+          </nav>
+        </header>
+      </nav>
+    </footer>
   </body>
   <script src="/scripts/index.js"></script>
 </html>

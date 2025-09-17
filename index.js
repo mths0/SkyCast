@@ -11,29 +11,38 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.static("public"));
 
-
 app.get("/", async (req, res) => {
   try {
-    // const { lat, lon } = locations.dubai;
-    // console.log(lat, lon);
-    const city = req.query.city
-    const {lat, lon} = locations[city.toLocaleLowerCase()];
+    let city = req.query.city ? req.query.city.toLowerCase() : "";
+    let found = Object.keys(locations).find((loc) => loc === city);
+    let lat, lon;
+
+    if (!found) {
+      ({ lat, lon } = locations.riyadh);
+      console.log("user Entered invalid city Runs Riyadh as default");
+    } else {
+      ({ lat, lon } = locations[found]);
+    }
     const response = await axios.get(
       URL + `?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.API_KEY}`
     );
-    console.log(response.data);
+    // console.log(response.data);
     res.render("index.ejs", { content: response.data });
   } catch (error) {
     console.log(error.message);
     res.render("index.ejs", { content: error.response });
   }
 });
-
+app.get("/locations", (req, res) => {
+  res.json(locations);
+});
 app.listen(PORT, () => {
   console.log(`Server are running on port ${PORT}`);
 });
-
 const locations = {
+  "khamis mushait": { lat: 18.3015, lon: 42.73 },
+  tabuk: { lat: 28.3972, lon: 36.5788 },
+  alnamas: { lat: 19.12, lon: 42.13 },
   riyadh: { lat: 24.7136, lon: 46.6753 },
   cairo: { lat: 30.0444, lon: 31.2357 },
   "new york": { lat: 40.7128, lon: -74.006 },
@@ -59,3 +68,5 @@ const locations = {
   jakarta: { lat: -6.2088, lon: 106.8456 },
   bangkok: { lat: 13.7563, lon: 100.5018 },
 };
+
+export default locations;
